@@ -1,0 +1,10 @@
+# Secrets
+basic_pipelines/firebase_credentials.json
+**/*firebase_credentials*.json
+**/*service_account*.json
+*.pem
+*.key
+
+# Logs / data
+*.log
+*.csv
