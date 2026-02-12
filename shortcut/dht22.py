@@ -11,7 +11,7 @@ from google.cloud import firestore
 from google.oauth2 import service_account
 
 # ----------------- KONFIGURASI CLOUD (ganti sebelum jalan) -----------------
-SERVICE_ACCOUNT_PATH = "/home/kelompok20/menamatkan-tekkom/gcp-service-account.json"   # <-- ganti path ke file JSON kamu
+SERVICE_ACCOUNT_PATH = "/home/kelompok20/menamatkan-tekkom/gcp-service-account.json"  
 FIRESTORE_COLLECTION = "sensors_env"
 # -------------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ def add_sensor_auto_id(collection, payload):
 
 # ---- Inisialisasi DHT ----
 dhtDevice = adafruit_dht.DHT22(board.D24)
-print("📡 Membaca data DHT22 di GPIO 24... (Ctrl+C untuk berhenti)\n")
+print("Membaca data DHT22 di GPIO 24... (Ctrl+C untuk berhenti)\n")
 
 try:
     while True:
@@ -49,7 +49,7 @@ try:
                     print("Gagal kirim ke Firestore:", e)
                 print(f"[DHT22] {ts} T={temperature:.1f}°C H={humidity:.1f}%")
             else:
-                print("⚠️ Gagal membaca data dari sensor (None).")
+                print("Gagal membaca data dari sensor (None).")
 
         except RuntimeError as error:
             # DHT22 kadang gagal baca, ini normal — retry singkat
@@ -62,4 +62,4 @@ try:
         time.sleep(INTERVAL)
 
 except KeyboardInterrupt:
-    print("\n🚪 Program dihentikan oleh pengguna.")
+    print("\n Program dihentikan oleh pengguna.")

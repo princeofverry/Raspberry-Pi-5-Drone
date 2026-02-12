@@ -63,7 +63,7 @@ def start_proc(name, script_path):
     return proc, t
 
 def main():
-    print("🚀 Menjalankan semua script di virtual environment...\n")
+    print("Menjalankan semua script di virtual environment...\n")
     processes = {}
     threads = []
 
@@ -77,14 +77,14 @@ def main():
         processes[name] = proc
         threads.append(t)
 
-    print("\n✅ Semua script berjalan. Tekan CTRL+C untuk berhenti.\n")
+    print("\n Semua script berjalan. Tekan CTRL+C untuk berhenti.\n")
 
     try:
         # tunggu sampai semua proses selesai atau CTRL+C
         while any(p.poll() is None for p in processes.values()):
             time.sleep(0.5)
     except KeyboardInterrupt:
-        print("\n🛑 Dihentikan oleh user. Menghentikan semua proses...")
+        print("\n Dihentikan oleh user. Menghentikan semua proses...")
         for p in processes.values():
             try:
                 p.send_signal(signal.SIGINT)
@@ -99,7 +99,7 @@ def main():
                     p.kill()
                 except Exception:
                     pass
-        print("✅ Semua proses dihentikan.")
+        print(" Semua proses dihentikan.")
 
 if __name__ == "__main__":
     main()

@@ -1,162 +1,165 @@
-# 🚁 Hailo RPi5 Drone Vision Project
+# Hailo RPi5 Drone Vision Project
 
-This project runs AI-based object detection and sensor monitoring on a
-**Raspberry Pi 5** using the **Hailo AI Accelerator**.\
-It includes vision processing, object detection, sensor logging (DHT22,
-GPS), CPU temperature monitoring, and streaming.
+This project implements AI-based object detection and vision processing
+on a Raspberry Pi 5 using the Hailo AI Accelerator (Hailo-8 / Hailo-8L).
+The system is designed for edge inference deployment and supports
+real-time detection, benchmarking, image capture, and structured data
+logging.
 
-------------------------------------------------------------------------
+The core implementation is located inside the `basic_pipelines/`
+directory.
 
-## 📦 Clone Repository
+---
 
-``` bash
+## Repository Setup
+
+### Clone Repository
+
+```bash
 git clone https://github.com/hailo-ai/hailo-rpi5-examples.git
 cd hailo-rpi5-examples
 ```
 
-------------------------------------------------------------------------
+---
 
-## ⚙️ Installation
+## Installation
 
 Run the installation script:
 
-``` bash
+```bash
 ./install.sh
 ```
 
 Activate the environment:
 
-``` bash
+```bash
 source setup_env.sh
 ```
 
-⚠️ You must activate the environment every time you open a new terminal.
+```
+pip install -r requirements.txt
+```
 
-------------------------------------------------------------------------
+The virtual environment must be activated every time a new terminal
+session is opened.
 
-## 🤖 Model Setup
+---
 
-Move your `.hef` model file into the root project directory:
+## Model Setup
 
-``` bash
+Place the compiled Hailo model file (`.hef`) in the project root
+directory:
+
+```bash
 mv model80map.hef hailo-rpi5-examples/
 ```
 
-Project structure should look like:
+Project structure example:
 
     hailo-rpi5-examples/
     │
-    ├── all-program/
+    ├── basic_pipelines/
     ├── model80map.hef
     ├── README.md
     └── ...
 
-------------------------------------------------------------------------
+---
 
-## 📂 Available Programs
+## Main Program Directory
 
-Navigate to the program directory:
+All primary detection and vision scripts are located in:
 
-``` bash
-cd all-program
+```bash
+cd basic_pipelines
 ```
 
-List available programs:
+To verify available programs:
 
-``` bash
+```bash
 ls
 ```
 
 Example contents:
 
--   dht22.py\
--   gps.py\
--   record.py\
--   run-all-sensor.py\
--   run-detect.py\
--   run-streaming.py\
--   run-vision.py\
--   streaming.py\
--   temp.py
+- detection.py
+- detection_simple.py
+- just-detect.py
+- just-detect-new.py
+- just-detect-pengujian.py
+- just-detect-time.py
+- taking-csv.py
+- taking-pict.py
+- depth.py
+- instance_segmentation.py
+- pose_estimation.py
 
-------------------------------------------------------------------------
+---
 
-# 🚀 Running Programs
+## Running Programs
 
-## 🔎 Object Detection
+### Standard Object Detection
 
-``` bash
-python run-detect.py
+```bash
+python just-detect.py
 ```
 
-## 🌡 DHT22 Sensor
+### Detection with Time Benchmarking
 
-``` bash
-python dht22.py
+```bash
+python just-detect-time.py
 ```
 
-## 📡 GPS Monitoring
+To use a different input video, modify the --input parameter in just-detect-time.py or any other shortcut script.
 
-``` bash
-python gps.py
+```
+--input kebakaran_hutan.mp4 change --input <video_name>
 ```
 
-## 🧠 Vision Processing
+### Detection for Testing / Evaluation
 
-``` bash
-python run-vision.py
+```bash
+python just-detect-pengujian.py
 ```
 
-## 📊 Run All Sensors
+### Export Detection Results to CSV
 
-``` bash
-python run-all-sensor.py
+```bash
+python taking-csv.py
 ```
 
-## 🖥 Streaming
+### Capture Images
 
-``` bash
-python run-streaming.py
+```bash
+python taking-pict.py
 ```
 
-------------------------------------------------------------------------
+---
 
-# 🛠 Requirements
+## System Requirements
 
--   Raspberry Pi 5\
--   Hailo AI Accelerator (Hailo-8 / Hailo-8L compatible with RPi5)\
--   Hailo RPi5 Software Environment (`install.sh`)\
--   Activated virtual environment (`source setup_env.sh`)\
--   Python 3.9+\
--   `.hef` model file (e.g., `model80map.hef`)
+- Raspberry Pi 5
+- Hailo AI Accelerator (Hailo-8 or Hailo-8L compatible with RPi5)
+- Hailo RPi5 Software Environment (`install.sh`)
+- Activated Python virtual environment
+- Python 3.9 or higher
+- Compiled `.hef` model file
 
-------------------------------------------------------------------------
+---
 
-# 📊 Output Files
+## Output Files
 
-Some programs generate CSV logs:
+Depending on the executed program, the system may generate:
 
--   gps_log.csv\
--   suhu_cpu_raspberrypi.csv\
--   suhu_cpu_raspberrypi_idle.csv
+- CSV detection logs
+- Benchmark logs
+- Runtime logs (`hailort.log`)
+- Captured images
 
-These files can be used for further data analysis.
+---
 
-------------------------------------------------------------------------
+## Description
 
-# 📌 Notes
-
--   Always activate the environment before running any program:
-
-    ``` bash
-    source setup_env.sh
-    ```
-
--   Ensure the `.hef` model file is placed in the project root
-    directory.
-
--   Use `ls` to verify files before execution.
-
-------------------------------------------------------------------------
-
-👨‍💻 Developed for Raspberry Pi 5 + Hailo AI Edge Inference System
+This project demonstrates real-time edge AI deployment using Raspberry
+Pi 5 and Hailo hardware acceleration. It includes structured
+benchmarking and logging capabilities suitable for research, capstone
+projects, and embedded AI system development.
