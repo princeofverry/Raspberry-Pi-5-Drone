@@ -88,7 +88,7 @@ def extract_frame_with_fallback(buffer, format_str, width, height):
             return cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB_NV12)
 
     except Exception as e:
-        print("❌ Frame extract error:", e)
+        print("Frame extract error:", e)
 
     return None
 
@@ -151,10 +151,10 @@ def app_callback(pad, info, user_data: user_app_callback_class):
             if frame_area and area_rel < MIN_BBOX_AREA_RATIO:
                 continue
 
-            print(f"🎯 Deteksi: {label} {confidence:.2f}")
+            print(f"Deteksi: {label} {confidence:.2f}")
 
         except Exception as e:
-            print("⚠️ Deteksi error:", e)
+            print("Deteksi error:", e)
 
     t_post_end = time.time()
     postprocess_time_ms = (t_post_end - t_post_start) * 1000.0
@@ -199,14 +199,14 @@ if __name__ == "__main__":
 
     project_root = Path(__file__).resolve().parent.parent
     os.environ["HAILO_ENV_FILE"] = str(project_root / ".env")
-    print("🔧 HAILO_ENV_FILE =", os.environ["HAILO_ENV_FILE"])
+    print("HAILO_ENV_FILE =", os.environ["HAILO_ENV_FILE"])
 
     Gst.init(None)
 
     user_data = user_app_callback_class()
     app = GStreamerDetectionApp(app_callback, user_data)
 
-    print("🚀 Running Hailo Detection + Timing Logger")
+    print("Running Hailo Detection + Timing Logger")
     try:
         app.run()
     finally:
