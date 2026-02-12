@@ -149,7 +149,7 @@ def app_callback(pad, info, user_data: user_app_callback_class):
                     continue
 
             # Hanya print / proses deteksi valid (confidence >= threshold, label ada)
-            print(f"🎯 Deteksi: {label} {confidence:.2f}")
+            print(f"Deteksi: {label} {confidence:.2f}")
 
             # Jika label termasuk fire/smoke -> gambar bbox
             if label.lower() in FIRE_LABELS:
@@ -174,9 +174,9 @@ def app_callback(pad, info, user_data: user_app_callback_class):
                         # Anda bisa menyimpan/stream frame di sini jika ingin:
                         # cv2.imwrite(f"/tmp/fire_{time.time():.3f}.jpg", draw_frame)
 
-                        print("🔥 Fire-like detected dengan bounding box")
+                        print("Fire-like detected dengan bounding box")
                     except Exception as e:
-                        print(f"⚠️ Gagal gambar bbox: {e}")
+                        print(f"Gagal gambar bbox: {e}")
         except Exception as e:
             print(f"⚠️ Error deteksi: {e}")
 
@@ -193,7 +193,7 @@ if __name__ == "__main__":
         project_root = Path.cwd()
 
     os.environ["HAILO_ENV_FILE"] = str(project_root / ".env")
-    print(f"🔧 HAILO_ENV_FILE = {os.environ['HAILO_ENV_FILE']}")
+    print(f"HAILO_ENV_FILE = {os.environ['HAILO_ENV_FILE']}")
 
     try:
         Gst.init(None)
@@ -203,5 +203,5 @@ if __name__ == "__main__":
 
     user_data = user_app_callback_class()
     app = GStreamerDetectionApp(app_callback, user_data)
-    print("🚀 Starting GStreamerDetectionApp (Deteksi Saja)...")
+    print("Starting GStreamerDetectionApp (Deteksi Saja)...")
     app.run()
