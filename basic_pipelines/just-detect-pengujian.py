@@ -72,7 +72,7 @@ class user_app_callback_class(app_callback_class):
                     "process_time_ms"
                 ])
         except Exception as e:
-            print(f"❌ Gagal buka file CSV {self.csv_path}: {e}")
+            print(f"Gagal buka file CSV {self.csv_path}: {e}")
             self.csv_file = None
             self.csv_writer = None
 
@@ -121,7 +121,7 @@ def extract_frame_with_fallback(buffer, format_str, width, height):
         if arr.size >= expected:
             return arr[:expected].reshape((height, width, 3))
     except Exception as e:
-        print(f"❌ extract_frame_with_fallback gagal: {e}")
+        print(f"extract_frame_with_fallback gagal: {e}")
     return None
 
 
@@ -200,7 +200,7 @@ def app_callback(pad, info, user_data: user_app_callback_class):
             except Exception:
                 pass
     except Exception as e:
-        print(f"❌ Gagal menulis CSV: {e}")
+        print(f"Gagal menulis CSV: {e}")
 
     # Lanjutkan proses deteksi (seperti sebelumnya)
     frame_cached = None
@@ -254,7 +254,7 @@ def app_callback(pad, info, user_data: user_app_callback_class):
                     continue
 
             # Hanya print / proses deteksi valid (confidence >= threshold, label ada)
-            print(f"🎯 Deteksi: {label} {confidence:.2f}")
+            print(f"Deteksi: {label} {confidence:.2f}")
 
             # Jika label termasuk fire/smoke -> gambar bbox
             if label.lower() in FIRE_LABELS:
@@ -281,9 +281,9 @@ def app_callback(pad, info, user_data: user_app_callback_class):
 
                         print("🔥 Fire-like detected dengan bounding box")
                     except Exception as e:
-                        print(f"⚠️ Gagal gambar bbox: {e}")
+                        print(f"Gagal gambar bbox: {e}")
         except Exception as e:
-            print(f"⚠️ Error deteksi: {e}")
+            print(f"Error deteksi: {e}")
 
     return Gst.PadProbeReturn.OK
 
@@ -298,17 +298,17 @@ if __name__ == "__main__":
         project_root = Path.cwd()
 
     os.environ["HAILO_ENV_FILE"] = str(project_root / ".env")
-    print(f"🔧 HAILO_ENV_FILE = {os.environ['HAILO_ENV_FILE']}")
+    print(f"HAILO_ENV_FILE = {os.environ['HAILO_ENV_FILE']}")
 
     try:
         Gst.init(None)
     except Exception as e:
-        print(f"❌ GStreamer init error: {e}")
+        print(f"GStreamer init error: {e}")
         sys.exit(1)
 
     user_data = user_app_callback_class(csv_path=DEFAULT_CSV_PATH)
     app = GStreamerDetectionApp(app_callback, user_data)
-    print("🚀 Starting GStreamerDetectionApp (Deteksi + CSV logging)...")
+    print("Starting GStreamerDetectionApp (Deteksi + CSV logging)...")
     try:
         app.run()
     finally:
